@@ -1,26 +1,33 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="app">
+    <!-- 1.高评价 -->
+    <room-area :area-data="highScore"></room-area>
+  </div>
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
+<script setup>
+  import { ref } from 'vue';
+  import RoomArea from './components/RoomArea.vue'
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+  // 1.获取数据
+  // import highScore from "./data/high_score.json"
+  // console.log(highScore)
+
+
+  // 2.模拟网络请求数据
+  const highScore = ref({})
+  setTimeout(() => {
+    import("./data/high_score.json").then(res => {
+      highScore.value = res.default
+    })
+  }, 1000);
+
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style lang="less" scoped>
+  .app {
+    width: 1032px;
+    padding: 40px;
+    margin: 0 auto;
+  }
 </style>
